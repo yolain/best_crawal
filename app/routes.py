@@ -1,19 +1,14 @@
-# coding = utf-8
 import os
-import time
-
 import requests
 from bs4 import BeautifulSoup
-from flask import Flask, jsonify, request
+from flask import jsonify, request, Blueprint
 from dotenv import load_dotenv
 
 load_dotenv(".env")
 
-app = Flask(__name__)
-app.config["JSON_AS_ASCII"] = False
+main = Blueprint('main', __name__)
 
-
-@app.route("/kasikorn", methods=["GET"])
+@main.route("/kasikorn", methods=["GET"])
 def kasikorn():
     key = request.headers.get('x-api-key')
     if key != os.getenv('API_KEY'):
@@ -47,6 +42,3 @@ def kasikorn():
                     obj['THB'+unit] = float(round(1 / float(sell_price), 4))
                 n = n + 1
     return jsonify(obj)
-
-if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=10000, debug=True)
