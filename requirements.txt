@@ -3,3 +3,4 @@ Flask
 lxml
 python-dotenv
 requests
+gunicorn
