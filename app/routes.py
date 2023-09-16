@@ -41,4 +41,14 @@ def kasikorn():
                 if sell_price != '-':
                     obj['THB'+unit] = float(round(1 / float(sell_price), 4))
                 n = n + 1
-    return jsonify(obj)
+        return jsonify({
+            "status": 200,
+            "code": 1,
+            "data": obj
+        })
+    else:
+        return jsonify({
+            "status": 200,
+            "code": 0,
+            "data": None
+        })
